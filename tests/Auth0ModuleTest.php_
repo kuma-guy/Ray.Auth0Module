@@ -1,0 +1,49 @@
+<?php
+
+declare(strict_types=1);
+namespace Ray\Auth0Module;
+
+use Auth0\SDK\API\Authentication;
+use Auth0\SDK\API\Management;
+use josegonzalez\Dotenv\Loader;
+use PHPUnit\Framework\TestCase;
+use Ray\AuraWebModule\AuraWebModule;
+use Ray\Di\AbstractModule;
+use Ray\Di\Injector;
+use Ray\Di\Scope;
+
+class Auth0ModuleTest extends TestCase
+{
+    /**
+     * @var AbstractModule
+     */
+    private $module;
+
+    public function testModule() : void
+    {
+//        $this->module = new class extends AbstractModule {
+//            protected function configure() : void
+//            {
+//                $this->install(new AuraWebModule());
+//
+//                $env = dirname(__DIR__, 2) . '/.env.test';
+//                (new Loader($env))->parse()->putenv(true);
+//                $this->bind()->annotatedWith(Auth0Config::class)->toInstance([
+//                    'domain' => getenv('AUTH0_DOMAIN'),
+//                    'client_id' => getenv('AUTH0_CLIENT_ID'),
+//                    'client_secret' => getenv('AUTH0_CLIENT_SECRET'),
+//                ]);
+//                $this->bind(AuthInterface::class)->to(Auth::class)->in(Scope::SINGLETON);
+//                $this->bind()->annotatedWith(Extractors::class)->toInstance([
+//                    new AuthorizationHeaderTokenExtractor(),
+//                ]);
+//                $this->bind(TokenExtractorResolver::class)->in(Scope::SINGLETON);
+//                $this->bind(Management::class)->toProvider(ManagementClientProvider::class);
+//                $this->bind(Authentication::class)->toProvider(AuthenticationClientProvider::class);
+//            }
+//        };
+//        $injector = (new Injector($this->module, dirname(__DIR__) . '/tmp'));
+//        $this->assertInstanceOf(Authentication::class, $injector->getInstance(Authentication::class));
+//        $this->assertInstanceOf(Management::class, $injector->getInstance(Management::class));
+    }
+}

@@ -1,0 +1,96 @@
+<?php
+
+declare(strict_types=1);
+namespace Hpplus\Maquia\Auth0\Provider;
+
+use Aura\Sql\ExtendedPdoInterface;
+use Aura\SqlQuery\Common\SelectInterface;
+use Auth0\SDK\API\Authentication;
+use Auth0\SDK\API\Management;
+use Hpplus\Maquia\Auth0\Annotation\Auth0Config;
+use Hpplus\Maquia\Auth0\Annotation\Extractors;
+use Hpplus\Maquia\Auth0\Auth\Auth;
+use Hpplus\Maquia\Auth0\Auth\AuthInterface;
+use Hpplus\Maquia\Auth0\Extractor\AuthorizationHeaderTokenExtractor;
+use Hpplus\Maquia\Auth0\Extractor\TokenExtractorResolver;
+use Hpplus\ThirdFramework\Service\AbstractAuth;
+use josegonzalez\Dotenv\Loader;
+use PHPUnit\Framework\TestCase;
+use Ray\AuraSqlModule\AuraSqlModule;
+use Ray\AuraWebModule\AuraWebModule;
+use Ray\Di\AbstractModule;
+use Ray\Di\Injector;
+use Ray\Di\Scope;
+use Ray\IdentityValueModule\IdentityValueModule;
+
+class AuthProviderTest extends TestCase
+{
+    /**
+     * @var AbstractModule
+     */
+    private $module;
+
+    protected function setUp() : void
+    {
+        $this->module = new class extends AbstractModule {
+            protected function configure() : void
+            {
+                $env = dirname(__DIR__, 2) . '/../.env.test';
+                (new Loader($env))->parse()->putenv(true);
+                [$host, $db, $user, $password, $charset] = [
+                    getenv('DB_HOST'),
+                    getenv('DB_NAME'),
+                    getenv('DB_USER'),
+                    getenv('DB_PASS'),
+                    getenv('DB_CHARSET')
+                ];
+
+                if ($user === false || $password === false) {
+                    throw new \RuntimeException('DB_USER and DB_PASSWORD is required.');
+                }
+
+                $dsn = "mysql:host={$host};dbname={$db};charset={$charset}";
+                $this->install(new AuraSqlModule($dsn, $user, $password));
+                $this->install(new AuraWebModule);
+                $this->install(new IdentityValueModule);
+
+                $this->bind()->annotatedWith(Auth0Config::class)->toInstance([
+                    'domain' => getenv('AUTH0_DOMAIN'),
+                    'client_id' => getenv('AUTH0_CLIENT_ID'),
+                    'client_secret' => getenv('AUTH0_CLIENT_SECRET'),
+                ]);
+                $this->bind(AuthInterface::class)->to(Auth::class)->in(Scope::SINGLETON);
+                $this->bind()->annotatedWith(Extractors::class)->toInstance([
+                    new AuthorizationHeaderTokenExtractor(),
+                ]);
+                $this->bind(TokenExtractorResolver::class)->in(Scope::SINGLETON);
+                $this->bind(Management::class)->toProvider(ManagementClientProvider::class);
+                $this->bind(Authentication::class)->toProvider(AuthenticationClientProvider::class);
+                $this->bind(AbstractAuth::class)->toProvider(AuthProvider::class)->in(Scope::SINGLETON);
+            }
+        };
+    }
+
+    public function testInvoke() : void
+    {
+        $injector = (new Injector($this->module, dirname(__DIR__) . '/tmp'));
+        $authClient = $injector->getInstance(Authentication::class);
+        $response = $authClient->oauth_token([
+            'grant_type' => 'password',
+            'username' => 'example1@example.co.jp',
+            'password' => 'Test1234',
+            'audience' => 'https://admin-maquia.hpplus.jp/'
+        ]);
+
+        $accessToken = $response['access_token'];
+        $_SERVER['HTTP_AUTHORIZATION'] = "Bearer {$accessToken}";
+        $auth = $injector->getInstance(AbstractAuth::class);
+        $this->assertSame('example1@example.co.jp', $auth->email);
+
+        $pdo = $injector->getInstance(ExtendedPdoInterface::class);
+        $select = $injector->getInstance(SelectInterface::class);
+        $select->from('cms_users')->cols(['id', 'name', 'name_kana'])->where('email = :email')->bindValues(['email' => $auth->email]);
+        $results = $pdo->fetchAll($select->getStatement(), $select->getBindValues());
+        $this->assertCount(1, $results);
+    }
+}
