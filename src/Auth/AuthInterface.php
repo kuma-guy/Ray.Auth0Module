@@ -8,5 +8,5 @@ use Lcobucci\JWT\Token;
 
 interface AuthInterface
 {
-    public function verifyToken(string $token) : Token;
+    public function verifyToken(string $token): Token;
 }

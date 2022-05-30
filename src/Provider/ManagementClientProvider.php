@@ -4,33 +4,44 @@ declare(strict_types=1);
 
 namespace Ray\Auth0Module\Provider;
 
+use Auth0\SDK\API\Authentication;
 use Auth0\SDK\API\Management;
-use Ray\Auth0Module\Annotation\Auth0Config;
+use Ray\Di\Di\Named;
 use Ray\Di\ProviderInterface;
 
+use function assert;
+use function is_string;
+
+/**
+ * @implements ProviderInterface<Management>
+ */
 class ManagementClientProvider implements ProviderInterface
 {
-    use AuthenticationClientInject;
+    /** @var string */
+    public $domain;
 
-    /** @var array */
-    private $config;
+    /** @var Authentication */
+    protected $authClient;
 
     /**
-     * @Auth0Config
-     *
-     * @param array $config
+     * @Named("domain=Ray\Auth0Module\Annotation\Domain")
      */
-    public function __construct($config)
+    #[Named('domain=Ray\Auth0Module\Annotation\Domain')]
+    public function __construct(string $domain, Authentication $authClient)
     {
-        $this->config = $config;
+        $this->domain = $domain;
+        $this->authClient = $authClient;
     }
 
-    public function get() : Management
+    public function get(): Management
     {
         $response = $this->authClient->client_credentials([
-            'audience' => 'https://' . $this->config['domain'] . '/api/v2/',
+            'audience' => 'https://' . $this->domain . '/api/v2/',
         ]);
 
-        return new Management($response['access_token'], $this->config['domain']);
+        $accessToken = $response['access_token'];
+        assert(is_string($accessToken));
+
+        return new Management($accessToken, $this->domain);
     }
 }

@@ -8,7 +8,7 @@ use Aura\Web\Request;
 
 interface TokenExtractorInterface
 {
-    public function supports(Request $request) : bool;
+    public function supports(Request $request): bool;
 
-    public function extract(Request $request) : string;
+    public function extract(Request $request): string;
 }

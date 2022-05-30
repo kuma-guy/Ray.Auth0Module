@@ -10,42 +10,45 @@ use Ray\AuraWebModule\AuraWebModule;
 use Ray\Di\AbstractModule;
 use Ray\Di\Injector;
 
+use function assert;
+use function dirname;
+
 class AuthorizationHeaderTokenExtractorTest extends TestCase
 {
-    /**
-     * @var AbstractModule
-     */
+    /** @var AbstractModule */
     private $module;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $this->module = new class extends AbstractModule {
-            protected function configure() : void
+            protected function configure(): void
             {
                 $this->install(new AuraWebModule());
             }
         };
     }
 
-    protected function tearDown() : void
+    protected function tearDown(): void
     {
         unset($_SERVER['HTTP_AUTHORIZATION']);
     }
 
-    public function testSupports() : void
+    public function testSupports(): void
     {
         $_SERVER['HTTP_AUTHORIZATION'] = 'Bearer token';
         $request = (new Injector($this->module, dirname(__DIR__) . '/tmp'))->getInstance(Request::class);
         $extractor = new AuthorizationHeaderTokenExtractor();
+        assert($request instanceof Request);
         $result = $extractor->supports($request);
         $this->assertTrue($result);
     }
 
-    public function testExtract() : void
+    public function testExtract(): void
     {
         $_SERVER['HTTP_AUTHORIZATION'] = 'Bearer token';
         $request = (new Injector($this->module, dirname(__DIR__) . '/tmp'))->getInstance(Request::class);
         $extractor = new AuthorizationHeaderTokenExtractor();
+        assert($request instanceof Request);
         $result = $extractor->extract($request);
         $this->assertSame('token', $result);
     }

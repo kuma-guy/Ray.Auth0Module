@@ -3,5 +3,7 @@ parameters:
   paths:
     - src
     - tests
-  ignoreErrors:
-  checkMissingIterableValueType: false
+  excludePaths:
+  		- tests/Fake/*
+  		- tests/tmp/*
+  		- src/Auth0Module.php

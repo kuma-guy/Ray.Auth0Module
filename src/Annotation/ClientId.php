@@ -13,6 +13,6 @@ use Ray\Di\Di\Qualifier;
  * @Qualifier
  */
 #[Attribute(Attribute::TARGET_METHOD), Qualifier]
-class Extractors
+final class ClientId
 {
 }

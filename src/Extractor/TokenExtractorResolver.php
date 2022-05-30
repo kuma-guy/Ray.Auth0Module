@@ -8,26 +8,28 @@ use Aura\Web\Request;
 use Ray\Auth0Module\Annotation\Extractors;
 use Ray\Auth0Module\Exception\TokenNotFound;
 
+use function assert;
+
 class TokenExtractorResolver
 {
-    /**
-     * @var array
-     */
+    /** @var array<string, object> */
     private $extractors;
 
     /**
-     * @Extractors
+     * @param array<string, object> $extractors
      *
-     * @var array
+     * @Extractors
      */
+    #[Extractors]
     public function __construct(array $extractors)
     {
         $this->extractors = $extractors;
     }
 
-    public function resolve(Request $request) : TokenExtractorInterface
+    public function resolve(Request $request): object
     {
         foreach ($this->extractors as $extractor) {
+            assert($extractor instanceof TokenExtractorInterface);
             if ($extractor->supports($request)) {
                 return $extractor;
             }
