@@ -17,10 +17,10 @@ use Ray\Di\Di\Qualifier;
 #[Attribute(Attribute::TARGET_METHOD), Qualifier]
 final class Auth0Config
 {
-    /** @var array */
+    /** @var string */
     public $value;
 
-    public function __construct(array $value)
+    public function __construct(string $value)
     {
         $this->value = $value;
     }

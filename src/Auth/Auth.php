@@ -19,8 +19,9 @@ class Auth implements AuthInterface
     private $verifier;
 
     /**
-     * @Auth0Config
+     * @Auth0Config("config")
      */
+    #[Auth0Config('config')]
     public function __construct(array $config)
     {
         $jwksFetcher = new JWKFetcher();
