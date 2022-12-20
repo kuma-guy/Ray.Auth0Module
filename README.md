@@ -31,17 +31,20 @@ class AppModule extends AbstractModule
 ```php
 class User extends ResourceObject
 {
-    use ManagementClientInject;
+    public function __construct() {
+        private Management $managementClient;
+    }()
     
-    public function onPost(UserDomain $user): ResourceObject
+    public function onPost(): static
     {
-    $response = $this->managementClient->users()->create([
-        'connection' => CONNECTION_NAME,
-        'email' => $email,
-        'email_verified' => true,
-        'name' => $name,
-        'password' => $initialPassword,
-    ]);
+        // ....    
+        $this->managementClient->users()->create([
+            'connection' => CONNECTION_NAME,
+            'email' => $email,
+            'email_verified' => true,
+            'name' => $name,
+            'password' => $initialPassword,
+        ]);
 }
 ```
 See more at https://github.com/auth0/Auth0-PHP
