@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Ray\Auth0Module\Provider;
 
+use Auth0\SDK\API\Authentication;
 use Auth0\SDK\API\Management;
 use Ray\Auth0Module\Annotation\Auth0Config;
 use Ray\Di\ProviderInterface;
 
 class ManagementClientProvider implements ProviderInterface
 {
-    use AuthenticationClientInject;
-
     /** @var array */
     private $config;
 
@@ -21,9 +20,10 @@ class ManagementClientProvider implements ProviderInterface
      * @param array $config
      */
     #[Auth0Config('config')]
-    public function __construct($config)
+    public function __construct($config, Authentication $authClient)
     {
         $this->config = $config;
+        $this->authClient = $authClient;
     }
 
     public function get() : Management
