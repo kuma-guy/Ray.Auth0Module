@@ -38,7 +38,9 @@ class Auth0Module extends AbstractModule
 
         $this->bind()->annotatedWith(Auth0Config::class)->toInstance($this->config);
         $this->bind(AuthInterface::class)->to(Auth::class)->in(Scope::SINGLETON);
-        $this->bind()->annotatedWith(Extractors::class)->to(AuthorizationHeaderTokenExtractor::class);
+        $this->bind()->annotatedWith(Extractors::class)->toInstance([
+            new AuthorizationHeaderTokenExtractor
+        ]);
         $this->bind(TokenExtractorResolver::class)->in(Scope::SINGLETON);
         $this->bind(Management::class)->toProvider(ManagementClientProvider::class);
         $this->bind(Authentication::class)->toProvider(AuthenticationClientProvider::class);
