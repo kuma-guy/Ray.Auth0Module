@@ -20,6 +20,7 @@ class TokenExtractorResolver
      *
      * @var array
      */
+    #[Extractors]
     public function __construct(array $extractors)
     {
         $this->extractors = $extractors;
