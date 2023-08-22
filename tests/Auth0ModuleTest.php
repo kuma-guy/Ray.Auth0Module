@@ -29,9 +29,10 @@ class Auth0ModuleTest extends TestCase
             {
                 $this->bind(Management::class)->toProvider(FakeManagementClientProvider::class);
                 $this->install(new Auth0Module([
-                    'domain' => 'AUTH0_DOMAIN',
-                    'client_id' => 'AUTH0_CLIENT_ID',
-                    'client_secret' => 'AUTH0_CLIENT_SECRET',
+                    'domain' => 'https://example.com',
+                    'clientId' => 'AUTH0_CLIENT_ID',
+                    'clientSecret' => 'AUTH0_CLIENT_SECRET',
+                    'cookieSecret' => 'AUTH0_COOKIE_SECRET'
                 ]));
             }
         };
