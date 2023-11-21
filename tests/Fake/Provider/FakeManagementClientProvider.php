@@ -28,14 +28,6 @@ class FakeManagementClientProvider implements ProviderInterface
 
     public function get() : Management
     {
-//        $response = $this->authClient->client_credentials([
-//            'audience' => 'https://' . $this->config['domain'] . '/api/v2/',
-//        ]);
-
-        $response = [
-            'access_token' => 'access_token',
-            'domain' => 'domain'
-        ];
-        return new Management($response['access_token'], $this->config['domain']);
+        return new Management($this->config);
     }
 }

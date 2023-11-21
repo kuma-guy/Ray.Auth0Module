@@ -26,6 +26,6 @@ class AuthenticationClientProvider implements ProviderInterface
 
     public function get() : Authentication
     {
-        return new Authentication($this->config['domain'], $this->config['client_id'], $this->config['client_secret']);
+        return new Authentication($this->config);
     }
 }
