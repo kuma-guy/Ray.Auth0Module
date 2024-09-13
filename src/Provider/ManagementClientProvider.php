@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ray\Auth0Module\Provider;
 
 use Auth0\SDK\API\Management;
+use Auth0\SDK\Configuration\SdkConfiguration;
 use Ray\Auth0Module\Annotation\Auth0Config;
 use Ray\Di\ProviderInterface;
 
@@ -12,26 +13,27 @@ class ManagementClientProvider implements ProviderInterface
 {
     use AuthenticationClientInject;
 
-    /** @var array */
-    private $config;
+    /** @var SdkConfiguration */
+    private $configuration;
 
     /**
-     * @Auth0Config("config")
-     *
      * @param array $config
+     *
+     * @Auth0Config("config")
      */
     #[Auth0Config('config')]
-    public function __construct($config)
+    public function __construct(private $config)
     {
-        $this->config = $config;
+        $this->configuration = new SdkConfiguration([
+            'domain' => $config['domain'],
+            'clientId' => $config['clientId'],
+            'clientSecret' => $config['clientSecret'] ?? null,
+            'cookieSecret' => $config['cookieSecret'] ?? null,
+        ]);
     }
 
-    public function get() : Management
+    public function get(): Management
     {
-        $response = $this->authClient->client_credentials([
-            'audience' => 'https://' . $this->config['domain'] . '/api/v2/',
-        ]);
-
-        return new Management($response['access_token'], $this->config['domain']);
+        return new Management($this->configuration);
     }
 }
