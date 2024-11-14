@@ -10,8 +10,7 @@
 
 ```php
 use Ray\Di\AbstractModule;
-use Ray\AuraSqlModule\AuraSqlModule;
-use Ray\AuraSqlModule\AuraSqlQueryModule;
+use Ray\Auth0Module\Auth0Module;
 
 class AppModule extends AbstractModule
 {
@@ -19,8 +18,9 @@ class AppModule extends AbstractModule
     {
         $this->install(new Auth0Module([
             'domain' => getenv('AUTH0_DOMAIN'),
-            'client_id' => getenv('AUTH0_CLIENT_ID'),
-            'client_secret' => getenv('AUTH0_CLIENT_SECRET'),
+            'clientId' => getenv('AUTH0_MANAGEMENT_CLIENT_ID'),
+            'clientSecret' => getenv('AUTH0_MANAGEMENT_CLIENT_SECRET'),
+            'cookieSecret' => getenv('AUTH0_MANAGEMENT_COOKIE_SECRET'),
         ]));
     }
 }
@@ -47,4 +47,5 @@ class User extends ResourceObject
         ]);
 }
 ```
+
 See more at https://github.com/auth0/Auth0-PHP
