@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace Ray\Auth0Module\Auth;
 
 use Auth0\SDK\Configuration\SdkConfiguration;
+use Auth0\SDK\Contract\TokenInterface;
 use Auth0\SDK\Exception\InvalidTokenException;
-use Auth0\SDK\Token\Parser;
+use Auth0\SDK\Token;
 use Ray\Auth0Module\Annotation\Auth0Config;
 use Ray\Auth0Module\Exception\InvalidToken;
 
@@ -19,22 +20,18 @@ class Auth implements AuthInterface
     #[Auth0Config('config')]
     public function __construct(array $config)
     {
-        $this->configuration = new SdkConfiguration([
-            'domain' => $config['domain'],
-            'clientId' => $config['clientId'],
-            'clientSecret' => $config['clientSecret'] ?? null,
-            'cookieSecret' => $config['cookieSecret'] ?? null,
-        ]);
+        $this->configuration = new SdkConfiguration($config);
     }
 
-    public function verifyToken(string $token): Parser
+    public function verifyToken(string $token) : TokenInterface
     {
         try {
-            $parser = new parser($this->configuration, $token);
-            $parser->parse();
-            $parser->verify(jwksUri: 'https://' . $this->configuration->getDomain() . '/.well-known/jwks.json');
+            $token = new Token($this->configuration, $token);
+            $token
+                ->verify()
+                ->validate();
 
-            return $parser;
+            return $token;
         } catch (InvalidTokenException $e) {
             throw new InvalidToken($e->getMessage());
         }

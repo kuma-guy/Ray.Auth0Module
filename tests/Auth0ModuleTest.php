@@ -1,27 +1,20 @@
 <?php
 
 declare(strict_types=1);
+
 namespace Ray\Auth0Module;
 
 use Auth0\SDK\API\Authentication;
 use Auth0\SDK\API\Management;
-use josegonzalez\Dotenv\Loader;
 use PHPUnit\Framework\TestCase;
-use Ray\AuraWebModule\AuraWebModule;
-use Ray\Auth0Module\Annotation\Auth0Config;
-use Ray\Auth0Module\Annotation\Extractors;
-use Ray\Auth0Module\Auth\Auth;
-use Ray\Auth0Module\Auth\AuthInterface;
-use Ray\Auth0Module\Extractor\AuthorizationHeaderTokenExtractor;
-use Ray\Auth0Module\Extractor\TokenExtractorResolver;
-use Ray\Auth0Module\Provider\AuthenticationClientProvider;
 use Ray\Auth0Module\Provider\FakeManagementClientProvider;
 use Ray\Di\AbstractModule;
 use Ray\Di\Injector;
-use Ray\Di\Scope;
 
 class Auth0ModuleTest extends TestCase
 {
+    private AbstractModule $module;
+
     public function testModule() : void
     {
         $this->module = new class extends AbstractModule {

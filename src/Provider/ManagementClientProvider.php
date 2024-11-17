@@ -24,15 +24,10 @@ class ManagementClientProvider implements ProviderInterface
     #[Auth0Config('config')]
     public function __construct(private $config)
     {
-        $this->configuration = new SdkConfiguration([
-            'domain' => $config['domain'],
-            'clientId' => $config['clientId'],
-            'clientSecret' => $config['clientSecret'] ?? null,
-            'cookieSecret' => $config['cookieSecret'] ?? null,
-        ]);
+        $this->configuration = new SdkConfiguration($config);
     }
 
-    public function get(): Management
+    public function get() : Management
     {
         return new Management($this->configuration);
     }
