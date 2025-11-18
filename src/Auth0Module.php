@@ -23,7 +23,7 @@ class Auth0Module extends AbstractModule
     /** @var array */
     private $config;
 
-    public function __construct(array $config, AbstractModule $module = null)
+    public function __construct(array $config, ?AbstractModule $module = null)
     {
         $this->config = $config;
         parent::__construct($module);

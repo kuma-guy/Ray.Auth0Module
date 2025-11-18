@@ -13,22 +13,24 @@ class ManagementClientProvider implements ProviderInterface
 {
     use AuthenticationClientInject;
 
-    /** @var SdkConfiguration */
-    private $configuration;
+    /** @var array */
+    private $config;
 
     /**
      * @param array $config
-     *
-     * @Auth0Config("config")
      */
-    #[Auth0Config('config')]
-    public function __construct(private $config)
+    public function __construct(
+        #[Auth0Config('config')] array $config
+    )
     {
-        $this->configuration = new SdkConfiguration($config);
+        $this->config = $config;
+        unset($this->config['customDomain']);
     }
 
     public function get() : Management
     {
-        return new Management($this->configuration);
+        $configuration = new SdkConfiguration($this->config);
+
+        return new Management($configuration);
     }
 }

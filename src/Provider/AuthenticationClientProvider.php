@@ -14,12 +14,11 @@ class AuthenticationClientProvider implements ProviderInterface
     private $config;
 
     /**
-     * @Auth0Config("config")
-     *
      * @param array $config
      */
-    #[Auth0Config('config')]
-    public function __construct($config)
+    public function __construct(
+        #[Auth0Config('config')] array $config
+    )
     {
         $this->config = $config;
     }

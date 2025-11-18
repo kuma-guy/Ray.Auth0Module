@@ -10,11 +10,11 @@ use Ray\Di\Di\Qualifier;
 
 /**
  * @Annotation
- * @Target("METHOD")
+ * @Target({"METHOD", "PARAMETER"})
  * @Qualifier
  * @NamedArgumentConstructor
  */
-#[Attribute(Attribute::TARGET_METHOD), Qualifier]
+#[Attribute(Attribute::TARGET_METHOD | Attribute::TARGET_PARAMETER), Qualifier]
 final class Auth0Config
 {
     /** @var string */

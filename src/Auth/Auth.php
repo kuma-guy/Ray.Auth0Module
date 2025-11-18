@@ -16,9 +16,9 @@ class Auth implements AuthInterface
     /** @var SdkConfiguration */
     private $configuration;
 
-    /** @Auth0Config("config") */
-    #[Auth0Config('config')]
-    public function __construct(array $config)
+    public function __construct(
+        #[Auth0Config('config')] array $config
+    )
     {
         $this->configuration = new SdkConfiguration($config);
     }
