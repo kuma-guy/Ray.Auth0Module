@@ -50,7 +50,6 @@
             "php -dzend_extension=xdebug.so ./vendor/bin/phpunit --coverage-text --coverage-html=build/coverage"
         ],
         "cs": [
-            "vendor/bin/php-cs-fixer fix -v --dry-run",
             "vendor/bin/phpcs --standard=phpcs.xml src;"
         ],
         "cs-fix": [

@@ -35,7 +35,7 @@ return (new \PhpCsFixer\Config())
         'dir_constant' => true, // @Symfony:risky
         'ereg_to_preg' => true, // @Symfony:risky
         'error_suppression' => true, // @Symfony:risky
-        'escape_implicit_backslashes' => true,
+        'string_implicit_backslashes' => true,
         'explicit_indirect_variable' => true,
         'explicit_string_variable' => true,
 //      'final_internal_class' => true,
