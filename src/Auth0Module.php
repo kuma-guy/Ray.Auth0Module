@@ -20,9 +20,12 @@ use Ray\Di\Scope;
 
 class Auth0Module extends AbstractModule
 {
-    /** @var array */
-    private $config;
+    /** @var array<string, mixed> */
+    private array $config;
 
+    /**
+     * @param array<string, mixed> $config
+     */
     public function __construct(array $config, ?AbstractModule $module = null)
     {
         $this->config = $config;

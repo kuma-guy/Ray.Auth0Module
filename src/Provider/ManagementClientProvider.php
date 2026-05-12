@@ -9,15 +9,18 @@ use Auth0\SDK\Configuration\SdkConfiguration;
 use Ray\Auth0Module\Annotation\Auth0Config;
 use Ray\Di\ProviderInterface;
 
+/**
+ * @implements ProviderInterface<Management>
+ */
 class ManagementClientProvider implements ProviderInterface
 {
     use AuthenticationClientInject;
 
-    /** @var array */
-    private $config;
+    /** @var array<string, mixed> */
+    private array $config;
 
     /**
-     * @param array $config
+     * @param array<string, mixed> $config
      */
     public function __construct(
         #[Auth0Config('config')] array $config

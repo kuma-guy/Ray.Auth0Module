@@ -11,7 +11,8 @@ class AuthorizationHeaderTokenExtractor implements TokenExtractorInterface
 {
     public function supports(Request $request) : bool
     {
-        if (null === $header = $request->headers->get(RequestHeader::AUTHORIZATION)) {
+        $header = $request->headers->get(RequestHeader::AUTHORIZATION);
+        if (! is_string($header)) {
             return false;
         }
 
@@ -22,6 +23,9 @@ class AuthorizationHeaderTokenExtractor implements TokenExtractorInterface
 
     public function extract(Request $request) : string
     {
-        return str_ireplace('Bearer ', '', $request->headers->get(RequestHeader::AUTHORIZATION));
+        $header = $request->headers->get(RequestHeader::AUTHORIZATION);
+        assert(is_string($header));
+
+        return str_ireplace('Bearer ', '', $header);
     }
 }

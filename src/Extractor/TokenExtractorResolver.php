@@ -10,11 +10,12 @@ use Ray\Auth0Module\Exception\TokenNotFound;
 
 class TokenExtractorResolver
 {
-    /**
-     * @var array
-     */
-    private $extractors;
+    /** @var array<TokenExtractorInterface> */
+    private array $extractors;
 
+    /**
+     * @param array<TokenExtractorInterface> $extractors
+     */
     #[Extractors]
     public function __construct(array $extractors)
     {
