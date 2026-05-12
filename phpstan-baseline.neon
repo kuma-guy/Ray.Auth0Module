@@ -1,0 +1,97 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Method Ray\\Auth0Module\\Auth\\Auth\:\:__construct\(\) has parameter \$config with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Auth/Auth.php
+
+		-
+			message: '#^Method Ray\\Auth0Module\\Auth0Module\:\:__construct\(\) has parameter \$config with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Auth0Module.php
+
+		-
+			message: '#^Property Ray\\Auth0Module\\Auth0Module\:\:\$config type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Auth0Module.php
+
+		-
+			message: '#^Parameter \#2 \$string of function explode expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Extractor/AuthorizationHeaderTokenExtractor.php
+
+		-
+			message: '#^Parameter \#3 \$subject of function str_ireplace expects array\<string\>\|string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Extractor/AuthorizationHeaderTokenExtractor.php
+
+		-
+			message: '#^Cannot call method supports\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/Extractor/TokenExtractorResolver.php
+
+		-
+			message: '#^Method Ray\\Auth0Module\\Extractor\\TokenExtractorResolver\:\:__construct\(\) has parameter \$extractors with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Extractor/TokenExtractorResolver.php
+
+		-
+			message: '#^Method Ray\\Auth0Module\\Extractor\\TokenExtractorResolver\:\:resolve\(\) should return Ray\\Auth0Module\\Extractor\\TokenExtractorInterface but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Extractor/TokenExtractorResolver.php
+
+		-
+			message: '#^Property Ray\\Auth0Module\\Extractor\\TokenExtractorResolver\:\:\$extractors type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Extractor/TokenExtractorResolver.php
+
+		-
+			message: '#^Class Ray\\Auth0Module\\Provider\\AuthenticationClientProvider implements generic interface Ray\\Di\\ProviderInterface but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Provider/AuthenticationClientProvider.php
+
+		-
+			message: '#^Method Ray\\Auth0Module\\Provider\\AuthenticationClientProvider\:\:__construct\(\) has parameter \$config with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Provider/AuthenticationClientProvider.php
+
+		-
+			message: '#^Property Ray\\Auth0Module\\Provider\\AuthenticationClientProvider\:\:\$config type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Provider/AuthenticationClientProvider.php
+
+		-
+			message: '#^Trait Ray\\Auth0Module\\Provider\\ManagementClientInject is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: src/Provider/ManagementClientInject.php
+
+		-
+			message: '#^Class Ray\\Auth0Module\\Provider\\ManagementClientProvider implements generic interface Ray\\Di\\ProviderInterface but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Provider/ManagementClientProvider.php
+
+		-
+			message: '#^Method Ray\\Auth0Module\\Provider\\ManagementClientProvider\:\:__construct\(\) has parameter \$config with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Provider/ManagementClientProvider.php
+
+		-
+			message: '#^Property Ray\\Auth0Module\\Provider\\ManagementClientProvider\:\:\$config type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Provider/ManagementClientProvider.php

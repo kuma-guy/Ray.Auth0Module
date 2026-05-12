@@ -21,8 +21,7 @@ class ManagementClientProvider implements ProviderInterface
      */
     public function __construct(
         #[Auth0Config('config')] array $config
-    )
-    {
+    ) {
         $this->config = $config;
         unset($this->config['customDomain']);
     }
