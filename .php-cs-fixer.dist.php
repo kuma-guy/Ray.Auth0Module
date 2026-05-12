@@ -6,9 +6,6 @@
  * @see https://github.com/PHP-CS-Fixer/PHP-CS-Fixer
  */
 
-$header = <<<'EOF'
-EOF;
-
 $finder = PhpCsFixer\Finder::create()
     ->exclude(['tests/Fake', 'tests/tmp', 'template'])
     ->in(__DIR__);
@@ -46,7 +43,6 @@ return (new \PhpCsFixer\Config())
         'function_to_constant' => true, // @Symfony:risky
         'type_declaration_spaces' => true, // @Symfony
         'general_phpdoc_annotation_remove' => ['annotations' => ['author', 'category', 'package', 'copyright', 'version']],
-        'header_comment' => ['header' => $header, 'comment_type' => 'comment'],
         'heredoc_to_nowdoc' => true,
         'include' => true, // @Symfony
 //      'increment_style' => 'pre', // @Symfony
@@ -145,7 +141,6 @@ return (new \PhpCsFixer\Config())
         'phpdoc_types_order' => true, // @Symfony
         'phpdoc_var_without_name' => true, // @Symfony
         'protected_to_private' => true,
-        'psr_autoloading' => true, // @Symfony:risky
         'return_assignment' => true,
         'return_type_declaration' =>  ['space_before' => 'one'],
         'self_accessor' => true, // @Symfony:risky

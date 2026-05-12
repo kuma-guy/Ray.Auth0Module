@@ -15,11 +15,6 @@ class TokenExtractorResolver
      */
     private $extractors;
 
-    /**
-     * @Extractors
-     *
-     * @var array
-     */
     #[Extractors]
     public function __construct(array $extractors)
     {

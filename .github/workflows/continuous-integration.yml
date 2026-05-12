@@ -46,3 +46,15 @@ jobs:
 
       - name: Run test suite
         run: ./vendor/bin/phpunit
+
+      - name: Run PHPStan
+        if: matrix.php-version == '8.2'
+        run: vendor/bin/phpstan analyse -c phpstan.neon --no-progress
+
+      - name: Run PHP-CS-Fixer
+        if: matrix.php-version == '8.2'
+        run: vendor/bin/php-cs-fixer fix -v --dry-run
+
+      - name: Run PHP_CodeSniffer
+        if: matrix.php-version == '8.2'
+        run: vendor/bin/phpcs --standard=phpcs.xml src

@@ -44,7 +44,7 @@
         "tests": [
             "@cs",
             "@test",
-            "vendor/bin/phpstan analyse -l max src -c phpstan.neon --no-progress"
+            "vendor/bin/phpstan analyse -c phpstan.neon --no-progress"
         ],
         "coverage": [
             "php -dzend_extension=xdebug.so ./vendor/bin/phpunit --coverage-text --coverage-html=build/coverage"
