@@ -22,6 +22,9 @@ class TokenExtractorResolver
         $this->extractors = $extractors;
     }
 
+    /**
+     * @throws TokenNotFound
+     */
     public function resolve(Request $request) : TokenExtractorInterface
     {
         foreach ($this->extractors as $extractor) {

@@ -14,7 +14,7 @@ return (new \PhpCsFixer\Config())
     ->setRiskyAllowed(true)
     ->setRules([
         '@PSR2' => true,
-        '@PHP80Migration:risky' => true,
+        '@PHP82Migration:risky' => true,
         'align_multiline_comment' => true,
         'array_indentation' => true,
         'array_syntax' => ['syntax' => 'short'],
@@ -81,7 +81,6 @@ return (new \PhpCsFixer\Config())
         'no_null_property_initialization' => true,
         'no_php4_constructor' => true,
         'no_short_bool_cast' => true, // @Symfony
-        'no_short_echo_tag' => false,
         'no_singleline_whitespace_before_semicolons' => true, // @Symfony
         'no_spaces_around_offset' => true, // @Symfony
         'no_superfluous_elseif' => true,

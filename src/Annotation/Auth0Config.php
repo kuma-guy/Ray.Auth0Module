@@ -10,8 +10,7 @@ use Ray\Di\Di\Qualifier;
 #[Attribute(Attribute::TARGET_METHOD | Attribute::TARGET_PARAMETER), Qualifier]
 final class Auth0Config
 {
-    /** @var string */
-    public $value;
+    public string $value;
 
     public function __construct(string $value)
     {

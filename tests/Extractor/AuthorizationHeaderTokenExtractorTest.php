@@ -7,6 +7,7 @@ namespace Ray\Auth0Module\Extractor;
 use Aura\Web\Request;
 use PHPUnit\Framework\TestCase;
 use Ray\AuraWebModule\AuraWebModule;
+use Ray\Auth0Module\Exception\TokenNotFound;
 use Ray\Di\AbstractModule;
 use Ray\Di\Injector;
 
@@ -48,5 +49,13 @@ class AuthorizationHeaderTokenExtractorTest extends TestCase
         $extractor = new AuthorizationHeaderTokenExtractor();
         $result = $extractor->extract($request);
         $this->assertSame('token', $result);
+    }
+
+    public function testExtractThrowsTokenNotFoundWhenHeaderMissing() : void
+    {
+        $request = (new Injector($this->module, dirname(__DIR__) . '/tmp'))->getInstance(Request::class);
+        $extractor = new AuthorizationHeaderTokenExtractor();
+        $this->expectException(TokenNotFound::class);
+        $extractor->extract($request);
     }
 }

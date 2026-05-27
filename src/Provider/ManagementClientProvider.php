@@ -14,8 +14,6 @@ use Ray\Di\ProviderInterface;
  */
 class ManagementClientProvider implements ProviderInterface
 {
-    use AuthenticationClientInject;
-
     /** @var array<string, mixed> */
     private array $config;
 

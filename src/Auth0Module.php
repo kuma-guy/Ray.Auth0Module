@@ -32,17 +32,14 @@ class Auth0Module extends AbstractModule
         parent::__construct($module);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function configure() : void
     {
-        $this->install(new AuraWebModule);
+        $this->install(new AuraWebModule());
 
         $this->bind()->annotatedWith(Auth0Config::class)->toInstance($this->config);
         $this->bind(AuthInterface::class)->to(Auth::class)->in(Scope::SINGLETON);
         $this->bind()->annotatedWith(Extractors::class)->toInstance([
-            new AuthorizationHeaderTokenExtractor
+            new AuthorizationHeaderTokenExtractor()
         ]);
         $this->bind(TokenExtractorResolver::class)->in(Scope::SINGLETON);
         $this->bind(Management::class)->toProvider(ManagementClientProvider::class);

@@ -52,3 +52,6 @@ jobs:
 
       - name: Run PHP_CodeSniffer
         run: vendor/bin/phpcs --standard=phpcs.xml src
+
+      - name: Run PHP-CS-Fixer
+        run: vendor/bin/php-cs-fixer fix --dry-run --diff
