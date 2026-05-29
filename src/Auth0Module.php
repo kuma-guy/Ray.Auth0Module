@@ -20,26 +20,26 @@ use Ray\Di\Scope;
 
 class Auth0Module extends AbstractModule
 {
-    /** @var array */
-    private $config;
+    /** @var array<string, mixed> */
+    private array $config;
 
+    /**
+     * @param array<string, mixed> $config
+     */
     public function __construct(array $config, ?AbstractModule $module = null)
     {
         $this->config = $config;
         parent::__construct($module);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function configure() : void
     {
-        $this->install(new AuraWebModule);
+        $this->install(new AuraWebModule());
 
         $this->bind()->annotatedWith(Auth0Config::class)->toInstance($this->config);
         $this->bind(AuthInterface::class)->to(Auth::class)->in(Scope::SINGLETON);
         $this->bind()->annotatedWith(Extractors::class)->toInstance([
-            new AuthorizationHeaderTokenExtractor
+            new AuthorizationHeaderTokenExtractor()
         ]);
         $this->bind(TokenExtractorResolver::class)->in(Scope::SINGLETON);
         $this->bind(Management::class)->toProvider(ManagementClientProvider::class);

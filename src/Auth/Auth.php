@@ -13,13 +13,14 @@ use Ray\Auth0Module\Exception\InvalidToken;
 
 class Auth implements AuthInterface
 {
-    /** @var SdkConfiguration */
-    private $configuration;
+    private SdkConfiguration $configuration;
 
+    /**
+     * @param array<string, mixed> $config
+     */
     public function __construct(
         #[Auth0Config('config')] array $config
-    )
-    {
+    ) {
         $this->configuration = new SdkConfiguration($config);
     }
 

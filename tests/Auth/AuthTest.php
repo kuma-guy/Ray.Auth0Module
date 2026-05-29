@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Ray\Auth0Module\Auth;
@@ -8,6 +9,7 @@ use Ray\Auth0Module\Exception\InvalidToken;
 
 class AuthTest extends TestCase
 {
+    /** @var array<string, mixed> */
     private array $validConfig = [
         'domain' => 'test.auth0.com',
         'clientId' => 'test-client-id',
@@ -16,13 +18,13 @@ class AuthTest extends TestCase
         'audience' => ['test-audience']
     ];
 
-    public function testConstructorWithValidConfig(): void
+    public function testConstructorWithValidConfig() : void
     {
         $auth = new Auth($this->validConfig);
         $this->assertInstanceOf(Auth::class, $auth);
     }
 
-    public function testVerifyTokenWithInvalidToken(): void
+    public function testVerifyTokenWithInvalidToken() : void
     {
         $auth = new Auth($this->validConfig);
         $invalidTokenString = 'invalid.token';
