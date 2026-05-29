@@ -15,7 +15,6 @@ jobs:
         operating-system:
           - ubuntu-latest
         php-version:
-          - '8.1'
           - '8.2'
           - '8.3'
           - '8.4'
@@ -47,3 +46,12 @@ jobs:
 
       - name: Run test suite
         run: ./vendor/bin/phpunit
+
+      - name: Run PHPStan
+        run: vendor/bin/phpstan analyse -c phpstan.neon --no-progress
+
+      - name: Run PHP_CodeSniffer
+        run: vendor/bin/phpcs --standard=phpcs.xml src
+
+      - name: Run PHP-CS-Fixer
+        run: vendor/bin/php-cs-fixer fix --dry-run --diff
