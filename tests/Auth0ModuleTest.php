@@ -25,7 +25,7 @@ class Auth0ModuleTest extends TestCase
                     'domain' => 'https://example.com',
                     'clientId' => 'AUTH0_CLIENT_ID',
                     'clientSecret' => 'AUTH0_CLIENT_SECRET',
-                    'cookieSecret' => 'AUTH0_COOKIE_SECRET'
+                    'audience' => ['https://api.example.com']
                 ]));
             }
         };

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ray\Auth0Module\Provider;
 
 use Auth0\SDK\API\Authentication;
+use Auth0\SDK\Configuration\SdkConfiguration;
 use Ray\Auth0Module\Annotation\Auth0Config;
 use Ray\Di\ProviderInterface;
 
@@ -27,6 +28,8 @@ class AuthenticationClientProvider implements ProviderInterface
 
     public function get() : Authentication
     {
+        $this->config['strategy'] = SdkConfiguration::STRATEGY_NONE;
+
         return new Authentication($this->config);
     }
 }

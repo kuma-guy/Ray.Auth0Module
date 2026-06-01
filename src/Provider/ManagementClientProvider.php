@@ -29,6 +29,7 @@ class ManagementClientProvider implements ProviderInterface
 
     public function get() : Management
     {
+        $this->config['strategy'] = SdkConfiguration::STRATEGY_MANAGEMENT_API;
         $configuration = new SdkConfiguration($this->config);
 
         return new Management($configuration);
