@@ -20,12 +20,14 @@ class AppModule extends AbstractModule
             'domain' => getenv('AUTH0_DOMAIN'),
             'clientId' => getenv('AUTH0_MANAGEMENT_CLIENT_ID'),
             'clientSecret' => getenv('AUTH0_MANAGEMENT_CLIENT_SECRET'),
-            'cookieSecret' => getenv('AUTH0_MANAGEMENT_COOKIE_SECRET'),
+            'audience' => [getenv('AUTH0_AUDIENCE')],
         ]));
     }
 }
 ```
-    
+
+> **Note:** `cookieSecret`（`AUTH0_MANAGEMENT_COOKIE_SECRET`）は不要になりました。本モジュールは Auth0-PHP SDK の `api` / `management` / `none` strategy を使用しており、暗号化セッション Cookie の読み書きは行いません。既存の設定に `cookieSecret` が含まれていても無視されるだけで実害はありません。
+
 ## Usage
 
 ```php

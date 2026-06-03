@@ -12,9 +12,6 @@ class AuthTest extends TestCase
     /** @var array<string, mixed> */
     private array $validConfig = [
         'domain' => 'test.auth0.com',
-        'clientId' => 'test-client-id',
-        'clientSecret' => 'test-client-secret',
-        'cookieSecret' => 'test-cookie-secret',
         'audience' => ['test-audience']
     ];
 

@@ -21,6 +21,7 @@ class Auth implements AuthInterface
     public function __construct(
         #[Auth0Config('config')] array $config
     ) {
+        $config['strategy'] = SdkConfiguration::STRATEGY_API;
         $this->configuration = new SdkConfiguration($config);
     }
 

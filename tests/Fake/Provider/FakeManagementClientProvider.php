@@ -23,6 +23,7 @@ class FakeManagementClientProvider implements ProviderInterface
     public function __construct(
         #[Auth0Config('config')] array $config
     ) {
+        $config['strategy'] = SdkConfiguration::STRATEGY_MANAGEMENT_API;
         $this->config = $config;
         unset($this->config['customDomain']);
     }
